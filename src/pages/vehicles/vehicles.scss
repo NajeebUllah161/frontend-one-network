@@ -1,0 +1,38 @@
+@import "../../styles/colors.scss";
+
+.list {
+  display: flex;
+  width: 100%;
+  .listContainer {
+    flex: 6;
+  }
+}
+
+.logout {
+  cursor: pointer;
+}
+
+.datatableTitle {
+  width: 100%;
+  font-size: 24px;
+  color: $red;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .headerTitle {
+    color: $red;
+  }
+
+  .link {
+    text-decoration: none;
+    color: $red;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid $red;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
