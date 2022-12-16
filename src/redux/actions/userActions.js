@@ -1,12 +1,12 @@
 import axios from "axios";
 import { server } from "../store";
 
-export const register = (name, email) => async (dispatch) => {
+export const register = (name, email, password) => async (dispatch) => {
     try {
         dispatch({ type: "signupRequest" });
 
         const { data } = await axios.post(
-            `${server}/register`, { name, email },
+            `${server}/register`, { name, email, password },
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -43,4 +43,3 @@ export const login = (email, password) => async (dispatch) => {
     }
 }
 
-  

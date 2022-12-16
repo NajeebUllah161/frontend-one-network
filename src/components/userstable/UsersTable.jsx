@@ -1,11 +1,12 @@
-import "./vehiclestable.scss";
+import "./userstable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { vehiclesColumn } from "../../datatablesource";
+import { usersColumn } from "../../datatablesource";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CustomersTable = () => {
-  const [vehicles, setVehicles] = useState([]);
+  const [users, setUsers] = useState([]);
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
@@ -23,16 +24,20 @@ const CustomersTable = () => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        let vehiclesArr = responseJson.user.vehicles;
+        let usersArr = responseJson.user.users;
         let i = 1;
         let list = [];
-        vehiclesArr.forEach((vehiclesDoc) => {
+        usersArr.forEach((usersDoc) => {
+          let birth_date = usersDoc.birth_date.toString();
+          birth_date = birth_date.substring(0, birth_date.indexOf("T"));
+          console.log(birth_date);
           list.push({
             id: i++,
-            ...vehiclesDoc,
+            ...usersDoc,
+            birth_date: birth_date,
           });
         });
-        setVehicles(list);
+        setUsers(list);
         console.log(list);
       })
       .catch((error) => {
@@ -40,23 +45,24 @@ const CustomersTable = () => {
       });
   };
 
-  const handleDelete = (vehicleId) => {
-    console.log(vehicleId);
-    deleteVehicle(vehicleId);
+  const handleDelete = (userId) => {
+    console.log(userId);
+    deleteVehicle(userId);
   };
 
-  const deleteVehicle = async (vehicleId) => {
+  const deleteVehicle = async (userId) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    fetch(`http://localhost:4000/api/v1/vehicle/${vehicleId}`, {
+    fetch(`http://localhost:4000/api/v1/user/${userId}`, {
       method: "DELETE",
       headers: myHeaders,
       credentials: "include",
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
+        console.log(responseJson.message);
+        toast.success(responseJson.message);
         setReload(true);
       })
       .catch((error) => {
@@ -73,16 +79,14 @@ const CustomersTable = () => {
         return (
           <div className="cellAction">
             <Link
-              to="/vehicles/update"
+              to="/users/update"
               state={{
-                vehicleId: params.row._id,
-                vehicle_type: params.row.vehicle_type,
-                name: params.row.name,
-                color: params.row.color,
-                model: params.row.model,
-                make: params.row.make,
-                reg_number: params.row.reg_number,
-                chassis_number: params.row.chassis_number,
+                userId: params.row._id,
+                full_name: params.row.full_name,
+                email: params.row.email,
+                nick_name: params.row.nick_name,
+                birth_date: params.row.birth_date,
+                gender: params.row.gender,
               }}
               style={{ textDecoration: "none" }}
             >
@@ -106,15 +110,15 @@ const CustomersTable = () => {
         style={{ color: "rgba(156, 0, 60)", fontWeight: "bold" }}
         className="datatableTitle"
       >
-        Vehicles Table
-        <Link to="/vehicles/new" className="link">
-          Add Vehicle
+        Users
+        <Link to="/users/new" className="link">
+          Add User
         </Link>
       </div>
       <DataGrid
         className="datagrid"
-        rows={vehicles}
-        columns={vehiclesColumn.concat(actionColumn)}
+        rows={users}
+        columns={usersColumn.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection

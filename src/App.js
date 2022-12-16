@@ -6,13 +6,12 @@ import { AuthContext } from "./context/AuthContext";
 //components
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import Vehicles from "./pages/vehicles/Vehicles";
-import AddVehicle from "./pages/addvehicle/AddVehicle";
-import UpdateVehicle from "./pages/updatevehicle/UpdateVehicle";
+import Users from "./pages/users/Users";
+import AddUser from "./pages/adduser/AddUser";
+import UpdateUser from "./pages/updateuser/UpdateUser";
 
 //styles
 import "./styles/app.scss";
-
 
 function App() {
 
@@ -24,21 +23,21 @@ function App() {
   return (
     <div>
       <Router>
-        {/* <Header /> */}
+        {/* Nested Routes */}
         <Routes>
           <Route path="/" >
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route index element={
               <RequireAuth>
-                <Vehicles />
+                <Users />
               </RequireAuth>} />
-            <Route path="vehicles">
+            <Route path="users">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <Vehicles />
+                    <Users />
                   </RequireAuth>
                 }
               />
@@ -46,7 +45,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <AddVehicle />
+                    <AddUser />
                   </RequireAuth>
                 }
               />
@@ -54,15 +53,13 @@ function App() {
                 path="update"
                 element={
                   <RequireAuth>
-                    <UpdateVehicle />
+                    <UpdateUser />
                   </RequireAuth>
                 }
               />
             </Route>
           </Route>
-
         </Routes>
-        {/* <Footer /> */}
         <Toaster />
       </Router>
     </div>

@@ -24,7 +24,7 @@ const Login = () => {
       dispatchold({ type: "clearLoginMessage" });
       const user = data;
       dispatch({ type: "LOGIN", payload: user });
-      navigate("/vehicles");
+      navigate("/users");
       console.log(user);
     }
     if (error) {
@@ -69,7 +69,7 @@ const Login = () => {
                   fontSize: 18,
                 }}
               >
-                RopStam
+                One Network
               </p>
             </div>
             <input

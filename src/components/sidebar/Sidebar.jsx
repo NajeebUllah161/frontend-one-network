@@ -1,5 +1,5 @@
 import "./sidebar.scss";
-import Car from "@mui/icons-material/TimeToLeave";
+import Car from "@mui/icons-material/SupervisedUserCircle";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -7,7 +7,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
       <Link
-          to="/vehicles"
+          to="/users"
           style={{
             textDecoration: "none",
           }}
@@ -15,7 +15,6 @@ const Sidebar = () => {
           <img
             style={{
               height: "40px",
-              borderRadius: 20,
               marginRight: 8,
             }}
             src={require("../../assets/logo.png")}
@@ -27,10 +26,10 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">LISTS</p>
-          <Link to="/vehicles" style={{ textDecoration: "none" }}>
+          <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <Car className="icon" />
-              <span>Vehicles</span>
+              <span>Users</span>
             </li>
           </Link>
         </ul>

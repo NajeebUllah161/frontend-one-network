@@ -1,12 +1,14 @@
-import "./vehicles.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import VehiclesTable from "../../components/vehiclestable/VehiclesTable";
+import "./users.scss";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
-const Vehicles = () => {
+//components
+import Sidebar from "../../components/sidebar/Sidebar";
+import UsersTable from "../../components/userstable/UsersTable";
+import { AuthContext } from "../../context/AuthContext";
+
+const Users = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
@@ -40,8 +42,8 @@ const Vehicles = () => {
       <Sidebar />
       <div className="listContainer">
         <div className="datatableTitle" style={{ position: "relative" }}>
-          <span style={{ fontWeight: "bold" }}>RopStam |</span>
-          Car Show Room
+          <span style={{ fontWeight: "bold" }}>One Network |</span>
+          Users Information System
           <span
             className="logout"
             onClick={logoutHandler}
@@ -59,10 +61,10 @@ const Vehicles = () => {
             Logout
           </span>
         </div>
-        <VehiclesTable />
+        <UsersTable />
       </div>
     </div>
   );
 };
 
-export default Vehicles;
+export default Users;

@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { register } from "../../redux/actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   // hooks
+  const navigate = useNavigate();
   const [validationError, setValidationError] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { loading, data, error, message } = useSelector((state) => state.auth);
 
@@ -18,7 +21,7 @@ const Register = () => {
       toast.success(message);
       dispatch({ type: "clearSignupData" });
       dispatch({ type: "clearSignupMessage" });
-      console.log("Data : ", data);
+      navigate("/login");
     }
     if (error) {
       toast.error(message);
@@ -32,7 +35,7 @@ const Register = () => {
   const registerHandler = (e) => {
     e.preventDefault();
 
-    dispatch(register(userName, email));
+    dispatch(register(userName, email, password));
     console.log("Registered");
   };
   return (
@@ -61,7 +64,7 @@ const Register = () => {
                   fontSize: 18,
                 }}
               >
-                RopStam
+                One Network
               </p>
             </div>
             <input
@@ -73,6 +76,11 @@ const Register = () => {
               type="email"
               placeholder="email"
               onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button style={{ borderRadius: 10 }} type="submit">
               Register
